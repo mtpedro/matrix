@@ -1,8 +1,12 @@
 from stockfish import Stockfish
 
+import sys
+sys.path.append("../")
+from io_utilities.matrix import Matrix
+
 class Board:
-    def __init__(self): 
-        
+    def __init__(self, grid=Matrix()): 
+        self.grid = grid
         self.stockfish = Stockfish(path="/opt/homebrew/bin/stockfish");
         #initialize board.
         self.fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w QKqk - 0 1"
@@ -12,6 +16,10 @@ class Board:
         try:
             self.stockfish.make_moves_from_current_position([mv]);
             self.fen = self.stockfish.get_fen_position();
+            
+            self.grid.matrix=self.fen_to_matrix();
+            self.grid.printmatrix(); 
+            
         except ValueError:
             return False
         else:

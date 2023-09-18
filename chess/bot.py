@@ -9,6 +9,6 @@ class Bot:
         
         self.stockfish.set_elo_rating(1350)
     
-    def get_best_move(self, fen, time=1000) -> str:
+    def get_best_move(self, fen, time=10000) -> str:
         self.stockfish.set_fen_position(fen); 
         return self.stockfish.get_best_move_time();
